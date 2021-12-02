@@ -33,16 +33,28 @@ def delete(entry1,entry2,listbox1,listbox2):
 
 
     return
-def generate_result(result,window,usecase):
+def generate_result(result,window,usecase,error,color):
+    if result == -1:
+        result = error
     c = Canvas(
             window,
-            height = 350,
-            width = 500,
+            height = 400,
+            width = 850,
+            bg=color,
             bd = 0,
             highlightthickness = 0,
             relief = "ridge"
             )
-    return c
+    c.place(x=30,y=150)
+    c.create_text(
+            40,
+            160,
+            anchor="nw",
+            text=result,
+            fill='#000000',
+            font=("Roboto Bold", 25 * -1)
+        )
+    return
 
 class GUI():
 
@@ -92,17 +104,17 @@ class GUI():
         return
 
     def restart(self,mode,flag):
-        if mode == 'exit':
-            flag[0] = True
-        
         self.window.destroy()
-        self.window = -1
+        if mode == 'exit':
+            self.window = -1
+            flag[0] = True
+        self.window = -2
         return
 
 
     def show(self,form):
 
-        if self.window == -1:
+        if self.window == -1 or self.window == -2:
             self.__createWindow()
 
         bg = ImageTk.PhotoImage(Image.open('assets/back4.jpg').resize((1440, 780)))
@@ -420,13 +432,13 @@ class GUI():
             anchor='nw',
             image=bg
         )
+
         if error == '':
             txt = 'Results.'
             color = '#FFFFFF'
         else:
             txt = 'Error!'
             color = '#FF0000'
-
         canvas.create_text(
             44.99999999999994,
             26.00000000000003,
@@ -468,18 +480,7 @@ class GUI():
             height=70.80682373046875
         )
 
-        #canvas.create_rectangle(
-        #    36.99999999999994,
-        #    112.00000000000003,
-        #    1408.0,
-        #    663.0,
-        #    fill="#FFFFFF",
-        #    outline="")
-        #label = Label(self.window, text=result)
-        #label.place(x=100,y=100,width=300,height=300)
-
-        canvas_result = generate_result(result,self.window,usecase)
-        canvas_result.place(x=150,y=150)
+        generate_result(result,self.window,usecase,error,color)
 
         self.window.mainloop()
 
