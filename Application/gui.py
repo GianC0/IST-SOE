@@ -6,7 +6,8 @@ from tkinter.constants import ANCHOR, END
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
-MODES = {1:'Air Quality', 2:'Sensor Similarity',3:'Characterising Values',4:'Location Comparison'}
+MODES = {1:'Air Quality', 2:'Sensor Similarity',3:'Characterising Values',4:'Location Comparison'} 
+
 def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
         
@@ -30,6 +31,19 @@ def delete(entry1,entry2,listbox1,listbox2):
     listbox2.selection_clear(0,END)
     return
 
+
+    return
+def generate_result(result,window,usecase):
+    c = Canvas(
+            window,
+            height = 350,
+            width = 500,
+            bd = 0,
+            highlightthickness = 0,
+            relief = "ridge"
+            )
+    return c
+
 class GUI():
 
     def __createWindow(self):
@@ -39,11 +53,20 @@ class GUI():
         self.window.title('Software for air quality analysis')
         self.icon = ImageTk.PhotoImage(Image.open('assets/logo.png'))
         self.window.iconphoto(True, self.icon)
+        self.window.protocol("WM_DELETE_WINDOW", lambda: self.close_window())
         return
+    
     def __init__(self,locations):
         self.__createWindow()
         self.locations = locations
-        self.back = False
+    
+    def close_window(self):
+        self.window.destroy()
+        self.window = -1
+        return
+    def is_defined(self):
+        return self.window != -1
+
 
     def cleanWindow(self):
         _list = self.window.winfo_children()
@@ -53,9 +76,36 @@ class GUI():
         
         for item in _list:
             item.destroy()
+    
+    def submit(self,form,entry1,entry2,listbox1,listbox2):
+        form['Date1'] = getEntry(entry1)
+        form['Date2'] = getEntry(entry2)
+        form['Loc1'] = getList(listbox1)
+        form['Loc2'] = getList(listbox2)
+    
+        self.window.destroy()
+        return
+
+    def home(self,form):
+        self.cleanWindow()
+        self.show(form)
+        return
+
+    def restart(self,mode,flag):
+        if mode == 'exit':
+            flag[0] = True
+        
+        self.window.destroy()
+        self.window = -1
+        return
+
+
     def show(self,form):
 
-        bg = ImageTk.PhotoImage(Image.open('assets/back.jpg').resize((1440, 780)))
+        if self.window == -1:
+            self.__createWindow()
+
+        bg = ImageTk.PhotoImage(Image.open('assets/back4.jpg').resize((1440, 780)))
         canvas = Canvas(
             self.window,
             height = 780,
@@ -165,10 +215,11 @@ class GUI():
     
         self.window.mainloop()
         return
+
     def showForm(self,mode,form):
         self.cleanWindow()
         form['Mode'] = MODES[mode]
-        bg = ImageTk.PhotoImage(Image.open('assets/back2.jpg').resize((1440, 780)))
+        bg = ImageTk.PhotoImage(Image.open('assets/back5.jpg').resize((1440, 780)))
         canvas = Canvas(
             self.window,
             height = 780,
@@ -349,26 +400,89 @@ class GUI():
         self.window.mainloop()
         return
 
-    def submit(self,form,entry1,entry2,listbox1,listbox2):
-        d1 = getEntry(entry1)
-        d2 = getEntry(entry2)
-        l1 = getList(listbox1)
-        l2 = getList(listbox2)
-        form['Date1'] = d1
-        form['Date2'] = d2
-        form['Loc1'] = l1
-        form['Loc2'] = l2
-    
-        self.window.destroy()
-        return
-    def home(self,form):
-        self.window.destroy()
+    def showResult(self,result,error,usecase):
         self.__createWindow()
-        self.show(form)
-        return
-    def showResult(self,result):
-        self.__createWindow()
-        print(result)
+        flag = [False]
+        bg = ImageTk.PhotoImage(Image.open('assets/back8.jpg').resize((1440, 780)))
+        canvas = Canvas(
+            self.window,
+            height = 780,
+            width = 1440,
+            bd = 0,
+            highlightthickness = 0,
+            relief = "ridge"
+            )
+
+        canvas.place(x = 0, y = 0)
+        canvas.create_image(
+            0.0,
+            0.0,
+            anchor='nw',
+            image=bg
+        )
+        if error == '':
+            txt = 'Results.'
+            color = '#FFFFFF'
+        else:
+            txt = 'Error!'
+            color = '#FF0000'
+
+        canvas.create_text(
+            44.99999999999994,
+            26.00000000000003,
+            anchor="nw",
+            text=txt,
+            fill=color,
+            font=("Roboto Bold", 64 * -1)
+        )
+
+        button_image_1 = PhotoImage(
+            file=relative_to_assets("button_7.png"))
+        button_1 = Button(
+            image=button_image_1,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: self.restart('home',flag),#HOME
+            relief="flat"
+        )
+        button_1.place(
+            x=613.0,
+            y=684.0,
+            width=213.757080078125,
+            height=70.80682373046875
+        )
+
+        button_image_2 = PhotoImage(
+            file=relative_to_assets("button_8.png"))
+        button_2 = Button(
+            image=button_image_2,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: self.restart('exit',flag),#EXIT
+            relief="flat"
+        )
+        button_2.place(
+            x=64.99999999999994,
+            y=684.0,
+            width=213.75711059570312,
+            height=70.80682373046875
+        )
+
+        #canvas.create_rectangle(
+        #    36.99999999999994,
+        #    112.00000000000003,
+        #    1408.0,
+        #    663.0,
+        #    fill="#FFFFFF",
+        #    outline="")
+        #label = Label(self.window, text=result)
+        #label.place(x=100,y=100,width=300,height=300)
+
+        canvas_result = generate_result(result,self.window,usecase)
+        canvas_result.place(x=150,y=150)
 
         self.window.mainloop()
+
+        return flag[0]
+        
 
