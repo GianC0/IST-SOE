@@ -4,7 +4,7 @@ from gui import MODES
 class Evaluator:
 
     def __init__(self, data):
-
+        
         self.data = data  # dictionary
 
     def get_result(self,form):

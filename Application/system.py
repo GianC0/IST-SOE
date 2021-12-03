@@ -20,6 +20,8 @@ class System():
         self.allData = self.aggregator.get_data()
         self.sensorLocations = self.aggregator.get_locations()
 
+        self.min_date, self.max_date = self.aggregator.get_period()
+
         self.GUI = GUI(self.sensorLocations)
 
         self.evaluator = Evaluator(self.allData)
@@ -35,6 +37,8 @@ class System():
             (flag,mex) = is_date(d1)
             if flag == False:
                 return 'Data field 1 is not correct: \n'+mex
+            if d1 < self.min_date or d1 > self.max_date:
+                return 'Data field 1 out of the range registered'
         if d2 != 'empty':
             if d1 == 'empty':
                 return 'Inserted a final date but not an initial one!'
@@ -43,6 +47,8 @@ class System():
                 return 'Data field 2 is not correct: '+mex
             if d2 <= d1:
                 return 'Data field 2 must be after than data field 1!'
+            if d2 > self.max_date:
+                return 'Data field 2 out of the range registered'
             
         if (s1 == 'empty' or s2 == 'empty') and mode == MODES[4]:
             return 'Location fields have not been selected!'

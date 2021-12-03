@@ -1,3 +1,4 @@
+from datetime import timedelta
 import pandas as pd
 
 def get_latitude(lat):
@@ -34,6 +35,13 @@ class Aggregator:
                 ', ' + get_longitude(self.sensors['Longitude'][i])
 
         return locations
+
+    def get_period(self):
+        min = self.data['Timestamp'].min() + timedelta(days=1)#functions consider the day before!
+        max = self.data['Timestamp'].max() + timedelta(days=1)
+        min = str(min).split(' ')[0]
+        max = str(max).split(' ')[0]
+        return min,max
 
     def __aggregate(self):
         sens_list = self.sensors['SensorID']
