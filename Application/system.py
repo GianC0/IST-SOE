@@ -84,7 +84,7 @@ class System():
                 self.GUI.show(self.form)
             else:
                 break
-            print(self.form)
+            #print(self.form)
             error = self.spot_error()
 
             result = -1

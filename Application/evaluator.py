@@ -66,7 +66,7 @@ class Evaluator:
             if len(v)>1:
                 out_str += 'Similarity Group: '+str(v)+'\nValues: '+str(k)+'\n\n'
 
-        return out_str
+        return out_str.replace('{','').replace('}','').replace("'",'')
 
     def __get_aqi(self, sensor, dateI, dateF, all_aqi_val=False):
 
@@ -92,7 +92,7 @@ class Evaluator:
 
         # useful for similarity comparison
         if all_aqi_val:
-            for key in aqi.items():
+            for key,_ in aqi.items():
                 aqi[key] = scores[aqi[key]]
             return aqi
 

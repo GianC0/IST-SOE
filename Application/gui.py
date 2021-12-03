@@ -3,7 +3,6 @@ from PIL import ImageTk, Image
 from tkinter import Label, Tk, Canvas, Button, PhotoImage, Entry,ttk,Listbox,TclError
 import tkinter
 from tkinter.constants import ANCHOR, END
-from pandas import DataFrame
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
