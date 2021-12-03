@@ -170,9 +170,9 @@
 																"$ref": "AAAAAAF9bO3WGTQOxfU="
 															},
 															"font": "Arial;13;0",
-															"left": 152.72998046875,
+															"left": 150.55908203125,
 															"top": 21,
-															"width": 88.45166015625,
+															"width": 79.67919921875,
 															"height": 13,
 															"text": "AggregateData"
 														},
@@ -185,7 +185,7 @@
 															"font": "Arial;13;1",
 															"left": 133,
 															"top": 21,
-															"width": 14.72998046875,
+															"width": 12.55908203125,
 															"height": 13,
 															"text": "sd"
 														}
@@ -10746,6 +10746,8 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
+													"left": -176,
+													"top": -32,
 													"height": 13
 												},
 												{
@@ -10755,9 +10757,9 @@
 														"$ref": "AAAAAAF9cU+F4/6WEZM="
 													},
 													"font": "Arial;13;1",
-													"left": 117,
-													"top": 383,
-													"width": 277.81787109375,
+													"left": 29,
+													"top": 367,
+													"width": 374.6513671875,
 													"height": 13,
 													"text": "Evaluator"
 												},
@@ -10769,6 +10771,8 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
+													"left": -176,
+													"top": -32,
 													"width": 130.0126953125,
 													"height": 13,
 													"text": "(from Class Diagrams)"
@@ -10781,14 +10785,16 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
+													"left": -176,
+													"top": -32,
 													"height": 13,
 													"horizontalAlignment": 1
 												}
 											],
 											"font": "Arial;13;0",
-											"left": 112,
-											"top": 376,
-											"width": 287.81787109375,
+											"left": 24,
+											"top": 360,
+											"width": 384.6513671875,
 											"height": 25,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAF9cU+F4/6Xg0g="
@@ -10823,18 +10829,18 @@
 														"$ref": "AAAAAAF9dS9OFK2j3lA="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 406,
-													"width": 277.81787109375,
+													"left": 29,
+													"top": 390,
+													"width": 374.6513671875,
 													"height": 13,
 													"text": "+data: Dict<DataFrame>",
 													"horizontalAlignment": 0
 												}
 											],
 											"font": "Arial;13;0",
-											"left": 112,
-											"top": 401,
-											"width": 287.81787109375,
+											"left": 24,
+											"top": 385,
+											"width": 384.6513671875,
 											"height": 23
 										},
 										{
@@ -10857,11 +10863,11 @@
 														"$ref": "AAAAAAF9cXCrNQG2HeU="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 429,
-													"width": 277.81787109375,
+													"left": 29,
+													"top": 413,
+													"width": 374.6513671875,
 													"height": 13,
-													"text": "+get_charData(String location, String[ ] time)",
+													"text": "+get_charData(sensor, dateI, dateF): Dict<DataFrame>",
 													"horizontalAlignment": 0
 												},
 												{
@@ -10874,11 +10880,11 @@
 														"$ref": "AAAAAAF9cXQnPQHNYcc="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 444,
-													"width": 277.81787109375,
+													"left": 29,
+													"top": 428,
+													"width": 374.6513671875,
 													"height": 13,
-													"text": "+get_similarity(????): ????",
+													"text": "+get_similarity(dateI, dateF): String",
 													"horizontalAlignment": 0
 												},
 												{
@@ -10891,11 +10897,11 @@
 														"$ref": "AAAAAAF9cXc09QH1ITg="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 459,
-													"width": 277.81787109375,
+													"left": 29,
+													"top": 443,
+													"width": 374.6513671875,
 													"height": 13,
-													"text": "+get_airQuality(Dataframe df): String str",
+													"text": "+get_aqi(sensor, dateI, dateF): String str",
 													"horizontalAlignment": 0
 												},
 												{
@@ -10908,11 +10914,11 @@
 														"$ref": "AAAAAAF9cY4fPwLLyPo="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 474,
-													"width": 277.81787109375,
+													"left": 29,
+													"top": 458,
+													"width": 374.6513671875,
 													"height": 13,
-													"text": "+get_Comparison(DataFrame data, String[ ] loc)",
+													"text": "+get_comparison(sensor1, sensor2, dateI, dateF): String",
 													"horizontalAlignment": 0
 												},
 												{
@@ -10925,18 +10931,18 @@
 														"$ref": "AAAAAAF9dSJjVa1duJ8="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 489,
-													"width": 277.81787109375,
+													"left": 29,
+													"top": 473,
+													"width": 374.6513671875,
 													"height": 13,
 													"text": "+__init__(Dict data ): Evaluator",
 													"horizontalAlignment": 0
 												}
 											],
 											"font": "Arial;13;0",
-											"left": 112,
-											"top": 424,
-											"width": 287.81787109375,
+											"left": 24,
+											"top": 408,
+											"width": 384.6513671875,
 											"height": 83
 										},
 										{
@@ -10950,6 +10956,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
+											"left": -88,
+											"top": -16,
 											"width": 10,
 											"height": 10
 										},
@@ -10964,15 +10972,17 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
+											"left": -88,
+											"top": -16,
 											"width": 10,
 											"height": 10
 										}
 									],
 									"font": "Arial;13;0",
 									"containerChangeable": true,
-									"left": 112,
-									"top": 376,
-									"width": 287.81787109375,
+									"left": 24,
+									"top": 360,
+									"width": 384.6513671875,
 									"height": 146,
 									"nameCompartment": {
 										"$ref": "AAAAAAF9cU+F4/6WEZM="
@@ -11417,8 +11427,7 @@
 											"_parent": {
 												"$ref": "AAAAAAF9cXCrNQG2HeU="
 											},
-											"name": "String location",
-											"type": ""
+											"name": "sensor"
 										},
 										{
 											"_type": "UMLParameter",
@@ -11426,8 +11435,24 @@
 											"_parent": {
 												"$ref": "AAAAAAF9cXCrNQG2HeU="
 											},
-											"name": "String[ ] time",
-											"type": ""
+											"name": "dateI"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAF9eh5DaCa7TmA=",
+											"_parent": {
+												"$ref": "AAAAAAF9cXCrNQG2HeU="
+											},
+											"name": "dateF"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAF9eh5DaCa8Jzo=",
+											"_parent": {
+												"$ref": "AAAAAAF9cXCrNQG2HeU="
+											},
+											"type": "Dict<DataFrame>",
+											"direction": "return"
 										}
 									]
 								},
@@ -11445,7 +11470,7 @@
 											"_parent": {
 												"$ref": "AAAAAAF9cXQnPQHNYcc="
 											},
-											"type": "????",
+											"type": "String",
 											"direction": "return"
 										},
 										{
@@ -11454,8 +11479,15 @@
 											"_parent": {
 												"$ref": "AAAAAAF9cXQnPQHNYcc="
 											},
-											"name": "????",
-											"type": ""
+											"name": "dateI"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAF9ef2VPya4U90=",
+											"_parent": {
+												"$ref": "AAAAAAF9cXQnPQHNYcc="
+											},
+											"name": "dateF"
 										}
 									]
 								},
@@ -11465,7 +11497,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF9cU+F4/6TVkQ="
 									},
-									"name": "get_airQuality",
+									"name": "get_aqi",
 									"parameters": [
 										{
 											"_type": "UMLParameter",
@@ -11473,8 +11505,7 @@
 											"_parent": {
 												"$ref": "AAAAAAF9cXc09QH1ITg="
 											},
-											"name": "Dataframe df",
-											"type": ""
+											"name": "sensor"
 										},
 										{
 											"_type": "UMLParameter",
@@ -11484,6 +11515,22 @@
 											},
 											"type": "String str",
 											"direction": "return"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAF9eytZ7ybCCZ4=",
+											"_parent": {
+												"$ref": "AAAAAAF9cXc09QH1ITg="
+											},
+											"name": "dateI"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAF9eytZ8CbDpkA=",
+											"_parent": {
+												"$ref": "AAAAAAF9cXc09QH1ITg="
+											},
+											"name": "dateF"
 										}
 									]
 								},
@@ -11493,7 +11540,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF9cU+F4/6TVkQ="
 									},
-									"name": "get_Comparison",
+									"name": "get_comparison",
 									"parameters": [
 										{
 											"_type": "UMLParameter",
@@ -11501,8 +11548,7 @@
 											"_parent": {
 												"$ref": "AAAAAAF9cY4fPwLLyPo="
 											},
-											"name": "DataFrame data",
-											"type": ""
+											"name": "sensor1"
 										},
 										{
 											"_type": "UMLParameter",
@@ -11510,8 +11556,32 @@
 											"_parent": {
 												"$ref": "AAAAAAF9cY4fPwLLyPo="
 											},
-											"name": "String[ ] loc",
-											"type": ""
+											"name": "sensor2"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAF9fmgRJ4S3JIc=",
+											"_parent": {
+												"$ref": "AAAAAAF9cY4fPwLLyPo="
+											},
+											"name": "dateI"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAF9fmgRKIS4sBM=",
+											"_parent": {
+												"$ref": "AAAAAAF9cY4fPwLLyPo="
+											},
+											"name": "dateF"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAF9fmo/24TARsk=",
+											"_parent": {
+												"$ref": "AAAAAAF9cY4fPwLLyPo="
+											},
+											"type": "String",
+											"direction": "return"
 										}
 									]
 								},
@@ -11960,7 +12030,7 @@
 									"font": "Arial;13;0",
 									"left": 430,
 									"top": 356.5,
-									"width": 106.078125,
+									"width": 106,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF9bCiP6VopKhY="
@@ -12159,7 +12229,7 @@
 									"font": "Arial;13;0",
 									"left": 343.5,
 									"top": 300.5,
-									"width": 113.3017578125,
+									"width": 113,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF9bCj2BFpZkF8="
@@ -12627,7 +12697,7 @@
 									"font": "Arial;13;0",
 									"left": 396,
 									"top": 484.5,
-									"width": 173.2744140625,
+									"width": 173,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF9bCmeRVrt34E="
@@ -12826,7 +12896,7 @@
 									"font": "Arial;13;0",
 									"left": 433.5,
 									"top": 148.5,
-									"width": 199.287109375,
+									"width": 198,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF9bCpmoVx8zoA="
@@ -13025,7 +13095,7 @@
 									"font": "Arial;13;0",
 									"left": 326,
 									"top": 196.5,
-									"width": 143.6181640625,
+									"width": 143,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF9bC5zXF5hYX0="
