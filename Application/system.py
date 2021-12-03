@@ -33,21 +33,22 @@ class System():
         s1 = self.form['Loc1'].split(':')[0]
         s2 = self.form['Loc2'].split(':')[0]
         
-        if d1 != 'empty':
-            (flag,mex) = is_date(d1)
-            if flag == False:
-                return 'Data field 1 is not correct: \n'+mex
-            if d1 < self.min_date or d1 > self.max_date:
-                return 'Data field 1 out of the range registered'
+        if d1 == 'empty':
+            return 'Data field 1 has not been inserted!'
+
+        (flag,mex) = is_date(d1)
+        if flag == False:
+            return 'Data field 1 is not correct: \n'+mex
+        if datetime.strptime(d1,'%Y-%m-%d') < datetime.strptime(self.min_date,'%Y-%m-%d') \
+             or datetime.strptime(d1,'%Y-%m-%d') > datetime.strptime(self.max_date,'%Y-%m-%d'):
+            return 'Data field 1 out of the range registered'
         if d2 != 'empty':
-            if d1 == 'empty':
-                return 'Inserted a final date but not an initial one!'
             (flag,mex) = is_date(d2)
             if flag == False:
                 return 'Data field 2 is not correct: '+mex
-            if d2 <= d1:
+            if datetime.strptime(d2,'%Y-%m-%d') <= datetime.strptime(d1,'%Y-%m-%d'):
                 return 'Data field 2 must be after than data field 1!'
-            if d2 > self.max_date:
+            if datetime.strptime(d2,'%Y-%m-%d') > datetime.strptime(self.max_date,'%Y-%m-%d'):
                 return 'Data field 2 out of the range registered'
             
         if (s1 == 'empty' or s2 == 'empty') and mode == MODES[4]:
@@ -59,17 +60,8 @@ class System():
         if mode == MODES[4] and s2 == s1:
             return 'Locations selected must be different!'
 
-        if s1 == 'empty' and mode == MODES[3]:
+        if s1 == 'empty' and (mode == MODES[3] or mode == MODES[1]):
             return 'Location field 1 has not been selected!'
-
-        if mode == MODES[1]:
-            if d1 == 'empty':
-                return 'Data field 1 has not been inserted!'
-            if s1 == 'empty':
-                return 'Location field 1 has not been selected!'
-
-        if (mode == MODES[2] or mode == MODES[4]) and d1 == 'empty':
-            return 'Data field 1 has not been inserted!'
 
         if mode == MODES[2] and s1 != 'empty':
             return 'Location field 1 should not be filled for this function!'

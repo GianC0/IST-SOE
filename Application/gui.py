@@ -1,8 +1,8 @@
 from pathlib import Path
 from PIL import ImageTk, Image
-from tkinter import Label, Tk, Canvas, Button, PhotoImage, Entry,ttk,Listbox,TclError
+from tkinter import Tk, Canvas, Button, PhotoImage, Entry,ttk,Listbox,TclError
 import tkinter
-from tkinter.constants import ANCHOR, END
+from tkinter.constants import  END
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
@@ -34,38 +34,43 @@ def delete(entry1,entry2,listbox1,listbox2):
 
     return
 def generate_result(result,window,usecase,error,color):
+
     c = Canvas(
-            window,
-            height = 400,
-            width = 850,
-            bg=color,
-            bd = 0,
-            highlightthickness = 0,
-            relief = "ridge"
-            )
-    c.place(x=30,y=150)
+        window,
+        height = 500,
+        width = 800,
+        bg=color,
+        bd = 0,
+        highlightthickness = 2,
+        highlightbackground="black",
+        relief = "ridge"
+    )
+    c.place(x=20,y=130)
+
     if error != '':
-        text = error
+        txt = error
     elif usecase == MODES[1]:#AIR QUALITY
-        #result should be a string
-        text = result
+        txt = result
+
     elif usecase == MODES[2]:#SENSOR SIMILARITY
-        #result should be a string
-        text = result
+        txt = result
+
     elif usecase == MODES[3]:#CHARACTERISING VALUES
-        #result should be a pd.DataFrame
-        text = result.to_string()
+        txt = result.to_string()
+
     else:                   #LOCATION COMPARISON
-        #result should be a string
-        text = result
+        txt = result
+
+    
     c.create_text(
-            40,
-            160,
+            30,
+            30,
             anchor="nw",
-            text=text,
+            text=txt,
             fill='#000000',
-            font=("Roboto Bold", 25 * -1)
-        )
+            font=("Roboto Bold", 23 * -1),
+            width=780
+    )
     return
 
 class GUI():
@@ -311,7 +316,7 @@ class GUI():
 
         entry_image_1 = PhotoImage(
             file=relative_to_assets("entry_1.png"))
-        entry_bg_1 = canvas.create_image(
+        canvas.create_image(
             497.99999999999994,
             504.5,
             image=entry_image_1
@@ -340,7 +345,7 @@ class GUI():
 
         entry_image_2 = PhotoImage(
             file=relative_to_assets("entry_2.png"))
-        entry_bg_2 = canvas.create_image(
+        canvas.create_image(
             1078.0,
             504.5,
             image=entry_image_2
@@ -421,6 +426,9 @@ class GUI():
             width=213.757080078125,
             height=70.80682373046875
         )
+
+        self.window.bind('<Return>',lambda _ : self.__submit(form,entry_1,entry_2,listbox1,listbox2))#use enter key to submit
+
         self.window.mainloop()
         return
 
@@ -492,6 +500,14 @@ class GUI():
             height=70.80682373046875
         )
 
+        tab = ImageTk.PhotoImage(Image.open('assets/table.png').resize((550, 300)))
+        canvas.create_image(
+            870,
+            40,
+            anchor='nw',
+            image=tab
+        )
+        
         generate_result(result,self.window,usecase,error,color)
 
         self.window.mainloop()

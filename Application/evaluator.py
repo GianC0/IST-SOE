@@ -66,6 +66,9 @@ class Evaluator:
             if len(v)>1:
                 out_str += 'Similarity Group: '+str(v)+'\nValues: '+str(k)+'\n\n'
 
+        if out_str == '':
+            out_str = 'No similarity between sensors has been found in the selected period!'
+
         return out_str.replace('{','').replace('}','').replace("'",'')
 
     def __get_aqi(self, sensor, dateI, dateF, all_aqi_val=False):
@@ -96,11 +99,11 @@ class Evaluator:
                 aqi[key] = scores[aqi[key]]
             return aqi
 
-        return scores[max(aqi.values())]
+        return 'The AQI is ' + scores[max(aqi.values())]
 
     def __get_comparison(self, s1, s2, dateI, dateF):
         aq1 = self.__get_aqi(s1, dateI, dateF, all_aqi_val=True)
         aq2 = self.__get_aqi(s2, dateI, dateF, all_aqi_val=True)
 
-        return  'Sensor1: '+str(aq1).replace('{','').replace('}','')+\
-                '\nSensor2: '+str(aq2).replace('{','').replace('}','')
+        return  'Sensor1: '+str(aq1).replace('{','').replace('}','').replace("'",'')+\
+                '\nSensor2: '+str(aq2).replace('{','').replace('}','').replace("'",'')
