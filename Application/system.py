@@ -1,10 +1,10 @@
 from gui import GUI
-from dateutil.parser import parse
 from gui import MODES
+from aggregator import Aggregator
+from evaluator import Evaluator
 from datetime import datetime
 
 def is_date(string):
-   
     fmt = '%Y-%m-%d'
     try:
         datetime.strptime(string, fmt)
@@ -15,47 +15,62 @@ def is_date(string):
 class System():
 
     def __init__(self):
-        #call method to retrieve data from aggregator
-        self.allData = -1
-        #extract locations to give to GUI
-        self.sensorLocations = [1,2,3,4,5,6,7,8,9]
-        self.GUI = GUI(self.sensorLocations)
-        self.form = {'Mode':'','Date1':'','Date2':'','Loc1':'','Loc2':''}#form to be passed to gui to retrieve user's data
-        self.aggregator = 0
-        self.evaluator = 0
+        
+        self.aggregator = Aggregator()
+        self.allData = self.aggregator.get_data()
+        self.sensorLocations = self.aggregator.get_locations()
 
-    def spot_error(self):
-        #recognize errors: returns string of description of the error if present, '' if absent
-        if self.form['Date1'] != 'empty':
-            (flag,mex) = is_date(self.form['Date1'])
+        self.GUI = GUI(self.sensorLocations)
+
+        self.evaluator = Evaluator(self.allData)
+
+    def spot_error(self):#recognize errors: returns string of description of the error if present, '' if absent
+        mode = self.form['Mode']
+        d1 = self.form['Date1']
+        d2 = self.form['Date2']
+        s1 = self.form['Loc1'].split(':')[0]
+        s2 = self.form['Loc2'].split(':')[0]
+        
+        if d1 != 'empty':
+            (flag,mex) = is_date(d1)
             if flag == False:
                 return 'Data field 1 is not correct: \n'+mex
-        if self.form['Date2'] != 'empty': 
-            (flag,mex) = is_date(self.form['Date2'])
+        if d2 != 'empty':
+            if d1 == 'empty':
+                return 'Inserted a final date but not an initial one!'
+            (flag,mex) = is_date(d2)
             if flag == False:
                 return 'Data field 2 is not correct: '+mex
-
-        if self.form['Loc1'] == 'empty' or self.form['Loc2']=='empty' and self.form['Mode']==MODES[4]:
+            if d2 <= d1:
+                return 'Data field 2 must be after than data field 1!'
+            
+        if (s1 == 'empty' or s2 == 'empty') and mode == MODES[4]:
             return 'Location fields have not been selected!'
 
-        if self.form['Loc2'] != 'empty' and self.form['Mode'] != MODES[4]:
+        if s2 != 'empty' and mode != MODES[4]:
             return 'Location field 2 should not be filled for this function!'
 
-        if self.form['Loc1'] == 'empty' and self.form['Mode']==MODES[3]:
+        if mode == MODES[4] and s2 == s1:
+            return 'Locations selected must be different!'
+
+        if s1 == 'empty' and mode == MODES[3]:
             return 'Location field 1 has not been selected!'
 
-        if self.form['Mode'] == MODES[1]:
-            if self.form['Date1'] == 'empty':
+        if mode == MODES[1]:
+            if d1 == 'empty':
                 return 'Data field 1 has not been inserted!'
-            if self.form['Loc1'] == 'empty':
+            if s1 == 'empty':
                 return 'Location field 1 has not been selected!'
 
-        if self.form['Mode'] == MODES[2] and self.form['Date1'] == 'empty':
+        if (mode == MODES[2] or mode == MODES[4]) and d1 == 'empty':
             return 'Data field 1 has not been inserted!'
 
+        if mode == MODES[2] and s1 != 'empty':
+            return 'Location field 1 should not be filled for this function!'
         return ''
 
     def run(self):
+        self.form = {'Mode':'','Date1':'','Date2':'','Loc1':'','Loc2':''}#form to be passed to gui to retrieve user's data
         end = False
         while end is False:
 
@@ -65,10 +80,10 @@ class System():
                 break
             print(self.form)
             error = self.spot_error()
+
             result = -1
             if error == '':#compute the result calling the evaluator only if no error
-                result = 0 
-
+                result = self.evaluator.get_result(self.form)
 
             if self.GUI.is_defined() == True:#check that the user hasn't forced the closure of the window
                 end = self.GUI.showResult(result,error,self.form['Mode'])

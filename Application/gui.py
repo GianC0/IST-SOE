@@ -3,6 +3,7 @@ from PIL import ImageTk, Image
 from tkinter import Label, Tk, Canvas, Button, PhotoImage, Entry,ttk,Listbox,TclError
 import tkinter
 from tkinter.constants import ANCHOR, END
+from pandas import DataFrame
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
@@ -34,8 +35,6 @@ def delete(entry1,entry2,listbox1,listbox2):
 
     return
 def generate_result(result,window,usecase,error,color):
-    if result == -1:
-        result = error
     c = Canvas(
             window,
             height = 400,
@@ -46,11 +45,25 @@ def generate_result(result,window,usecase,error,color):
             relief = "ridge"
             )
     c.place(x=30,y=150)
+    if error != '':
+        text = error
+    elif usecase == MODES[1]:#AIR QUALITY
+        #result should be a string
+        text = result
+    elif usecase == MODES[2]:#SENSOR SIMILARITY
+        #result should be a string
+        text = result
+    elif usecase == MODES[3]:#CHARACTERISING VALUES
+        #result should be a pd.DataFrame
+        text = result.to_string()
+    else:                   #LOCATION COMPARISON
+        #result should be a string
+        text = result
     c.create_text(
             40,
             160,
             anchor="nw",
-            text=result,
+            text=text,
             fill='#000000',
             font=("Roboto Bold", 25 * -1)
         )
@@ -65,14 +78,14 @@ class GUI():
         self.window.title('Software for air quality analysis')
         self.icon = ImageTk.PhotoImage(Image.open('assets/logo.png'))
         self.window.iconphoto(True, self.icon)
-        self.window.protocol("WM_DELETE_WINDOW", lambda: self.close_window())
+        self.window.protocol("WM_DELETE_WINDOW", lambda: self.__close_window())
         return
     
     def __init__(self,locations):
         self.__createWindow()
         self.locations = locations
     
-    def close_window(self):
+    def __close_window(self):
         self.window.destroy()
         self.window = -1
         return
@@ -80,7 +93,7 @@ class GUI():
         return self.window != -1
 
 
-    def cleanWindow(self):
+    def __cleanWindow(self):
         _list = self.window.winfo_children()
         for item in _list :
             if item.winfo_children() :
@@ -89,7 +102,7 @@ class GUI():
         for item in _list:
             item.destroy()
     
-    def submit(self,form,entry1,entry2,listbox1,listbox2):
+    def __submit(self,form,entry1,entry2,listbox1,listbox2):
         form['Date1'] = getEntry(entry1)
         form['Date2'] = getEntry(entry2)
         form['Loc1'] = getList(listbox1)
@@ -98,12 +111,12 @@ class GUI():
         self.window.destroy()
         return
 
-    def home(self,form):
-        self.cleanWindow()
+    def __home(self,form):
+        self.__cleanWindow()
         self.show(form)
         return
 
-    def restart(self,mode,flag):
+    def __restart(self,mode,flag):
         self.window.destroy()
         if mode == 'exit':
             self.window = -1
@@ -158,7 +171,7 @@ class GUI():
             image=button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda : self.showForm(1,form),
+            command=lambda : self.__showForm(1,form),
             relief="flat"
         )
         button_1.place(
@@ -174,7 +187,7 @@ class GUI():
             image=button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda : self.showForm(2,form),
+            command=lambda : self.__showForm(2,form),
             relief="flat"
         )
         button_2.place(
@@ -190,7 +203,7 @@ class GUI():
             image=button_image_3,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda : self.showForm(3,form),
+            command=lambda : self.__showForm(3,form),
             relief="flat"
         )
         button_3.place(
@@ -206,7 +219,7 @@ class GUI():
             image=button_image_4,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda : self.showForm(4,form),
+            command=lambda : self.__showForm(4,form),
             relief="flat"
         )
         button_4.place(
@@ -228,8 +241,8 @@ class GUI():
         self.window.mainloop()
         return
 
-    def showForm(self,mode,form):
-        self.cleanWindow()
+    def __showForm(self,mode,form):
+        self.__cleanWindow()
         form['Mode'] = MODES[mode]
         bg = ImageTk.PhotoImage(Image.open('assets/back5.jpg').resize((1440, 780)))
         canvas = Canvas(
@@ -370,7 +383,7 @@ class GUI():
             image=button_image_5,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.submit(form,entry_1,entry_2,listbox1,listbox2),
+            command=lambda: self.__submit(form,entry_1,entry_2,listbox1,listbox2),
             relief="flat"
         )
         button_5.place(
@@ -400,7 +413,7 @@ class GUI():
             image=button_image_7,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.home(form),
+            command=lambda: self.__home(form),
             relief="flat"
         )
         button_7.place(
@@ -454,7 +467,7 @@ class GUI():
             image=button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.restart('home',flag),#HOME
+            command=lambda: self.__restart('home',flag),#HOME
             relief="flat"
         )
         button_1.place(
@@ -470,7 +483,7 @@ class GUI():
             image=button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.restart('exit',flag),#EXIT
+            command=lambda: self.__restart('exit',flag),#EXIT
             relief="flat"
         )
         button_2.place(
