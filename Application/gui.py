@@ -3,14 +3,15 @@ from PIL import ImageTk, Image
 from tkinter import Tk, Canvas, Button, PhotoImage, Entry,ttk,Listbox,TclError
 import tkinter
 from tkinter.constants import  END
+from aggregator import resource_path
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path("./assets")
+ASSETS_PATH = OUTPUT_PATH / Path("assets")
 MODES = {1:'Air Quality', 2:'Sensor Similarity',3:'Characterising Values',4:'Location Comparison'} 
 
 def relative_to_assets(path: str) -> Path:
-        return ASSETS_PATH / Path(path)
-        
+        return resource_path(ASSETS_PATH / Path(path))
+
 def getEntry(entry):
     x = entry.get()
     if x == '':
@@ -80,7 +81,7 @@ class GUI():
         self.window.geometry("1440x780")
         self.window.resizable(False, False)
         self.window.title('Software for air quality analysis')
-        self.icon = ImageTk.PhotoImage(Image.open('assets/logo.png'))
+        self.icon = ImageTk.PhotoImage(Image.open(resource_path('assets/logo.png')))
         self.window.iconphoto(True, self.icon)
         self.window.protocol("WM_DELETE_WINDOW", lambda: self.__close_window())
         return
@@ -134,7 +135,7 @@ class GUI():
         if self.window == -1 or self.window == -2:
             self.__createWindow()
 
-        bg = ImageTk.PhotoImage(Image.open('assets/back4.jpg').resize((1440, 780)))
+        bg = ImageTk.PhotoImage(Image.open(resource_path('assets/back4.jpg')).resize((1440, 780)))
         canvas = Canvas(
             self.window,
             height = 780,
@@ -248,7 +249,7 @@ class GUI():
     def __showForm(self,mode,form):
         self.__cleanWindow()
         form['Mode'] = MODES[mode]
-        bg = ImageTk.PhotoImage(Image.open('assets/back5.jpg').resize((1440, 780)))
+        bg = ImageTk.PhotoImage(Image.open(resource_path('assets/back5.jpg')).resize((1440, 780)))
         canvas = Canvas(
             self.window,
             height = 780,
@@ -435,7 +436,7 @@ class GUI():
     def showResult(self,result,error,usecase):
         self.__createWindow()
         flag = [False]
-        bg = ImageTk.PhotoImage(Image.open('assets/back8.jpg').resize((1440, 780)))
+        bg = ImageTk.PhotoImage(Image.open(resource_path('assets/back8.jpg')).resize((1440, 780)))
         canvas = Canvas(
             self.window,
             height = 780,
@@ -500,7 +501,7 @@ class GUI():
             height=70.80682373046875
         )
 
-        tab = ImageTk.PhotoImage(Image.open('assets/table.png').resize((550, 300)))
+        tab = ImageTk.PhotoImage(Image.open(resource_path('assets/table.png')).resize((550, 300)))
         canvas.create_image(
             870,
             40,

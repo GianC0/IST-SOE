@@ -1,6 +1,14 @@
 from datetime import timedelta
 import pandas as pd
+import sys, os
 
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 def get_latitude(lat):
     if lat < 0:
         dir = 'W'
@@ -19,9 +27,9 @@ def get_longitude(long):
 class Aggregator:
 
     def __init__(self):
-        self.data = pd.read_csv('data/data.csv')
+        self.data = pd.read_csv(resource_path('data/data.csv'))
         self.data['Timestamp'] = pd.to_datetime(self.data['Timestamp'])
-        self.sensors = pd.read_csv('data/sensors.csv')
+        self.sensors = pd.read_csv(resource_path('data/sensors.csv'))
 
     def get_data(self):
         return self.__aggregate()
