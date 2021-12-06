@@ -1,35 +1,18 @@
 from datetime import timedelta
 import pandas as pd
-import sys, os
-
-def resource_path(relative_path):
-    try:
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-
-    return os.path.join(base_path, relative_path)
-def get_latitude(lat):
-    if lat < 0:
-        dir = 'W'
-    else:
-        dir = 'E'
-    lat = abs(lat)
-    return '{:.2f}° '.format(lat) + dir
-def get_longitude(long):
-    if long < 0:
-        dir = 'S'
-    else:
-        dir = 'N'
-    long = abs(long)
-    return '{:.2f}° '.format(long) + dir
+from utilities import resource_path, get_latitude, get_longitude
 
 class Aggregator:
 
     def __init__(self):
-        self.data = pd.read_csv(resource_path('data/data.csv'))
-        self.data['Timestamp'] = pd.to_datetime(self.data['Timestamp'])
-        self.sensors = pd.read_csv(resource_path('data/sensors.csv'))
+        try:
+            self.data = pd.read_csv(resource_path('data/data.csv'))
+            self.data['Timestamp'] = pd.to_datetime(self.data['Timestamp'])
+            self.sensors = pd.read_csv(resource_path('data/sensors.csv'))
+        except Exception:
+            print('Reading error')
+            self.data = None
+        
 
     def get_data(self):
         return self.__aggregate()

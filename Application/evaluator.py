@@ -1,10 +1,9 @@
 import pandas as pd
-from gui import MODES
+from utilities import MODES
 
 class Evaluator:
 
     def __init__(self, data):
-        
         self.data = data  # dictionary
 
     def get_result(self,form):
@@ -99,11 +98,11 @@ class Evaluator:
                 aqi[key] = scores[aqi[key]]
             return aqi
 
-        return 'The AQI is ' + scores[max(aqi.values())]
+        return scores[max(aqi.values())]
 
     def __get_comparison(self, s1, s2, dateI, dateF):
         aq1 = self.__get_aqi(s1, dateI, dateF, all_aqi_val=True)
         aq2 = self.__get_aqi(s2, dateI, dateF, all_aqi_val=True)
 
-        return  'Sensor1: '+str(aq1).replace('{','').replace('}','').replace("'",'')+\
-                '\nSensor2: '+str(aq2).replace('{','').replace('}','').replace("'",'')
+        return  s1 + ': '+ str(aq1).replace('{','').replace('}','').replace("'",'')+\
+                '\n' + s2 + ': ' + str(aq2).replace('{','').replace('}','').replace("'",'')

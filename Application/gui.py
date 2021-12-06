@@ -1,85 +1,15 @@
-from pathlib import Path
 from PIL import ImageTk, Image
-from tkinter import Tk, Canvas, Button, PhotoImage, Entry,ttk,Listbox,TclError
+from tkinter import Tk, Canvas, Button, PhotoImage, Entry,ttk,Listbox
 import tkinter
 from tkinter.constants import  END
-from aggregator import resource_path
-
-OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path("assets")
-MODES = {1:'Air Quality', 2:'Sensor Similarity',3:'Characterising Values',4:'Location Comparison'} 
-
-def relative_to_assets(path: str) -> Path:
-        return resource_path(ASSETS_PATH / Path(path))
-
-def getEntry(entry):
-    x = entry.get()
-    if x == '':
-        return 'empty'
-    return x
-def getList(listbox):
-    x = 'empty'
-    try: 
-        index = listbox.curselection()
-        x = listbox.get(index)
-    except TclError:
-        pass
-    return x
-def delete(entry1,entry2,listbox1,listbox2):
-    entry1.delete(0,END)
-    entry2.delete(0,END)
-    listbox1.selection_clear(0,END)
-    listbox2.selection_clear(0,END)
-    return
-
-
-    return
-def generate_result(result,window,usecase,error,color):
-
-    c = Canvas(
-        window,
-        height = 500,
-        width = 800,
-        bg=color,
-        bd = 0,
-        highlightthickness = 2,
-        highlightbackground="black",
-        relief = "ridge"
-    )
-    c.place(x=20,y=130)
-
-    if error != '':
-        txt = error
-    elif usecase == MODES[1]:#AIR QUALITY
-        txt = result
-
-    elif usecase == MODES[2]:#SENSOR SIMILARITY
-        txt = result
-
-    elif usecase == MODES[3]:#CHARACTERISING VALUES
-        txt = result.to_string()
-
-    else:                   #LOCATION COMPARISON
-        txt = result
-
-    
-    c.create_text(
-            30,
-            30,
-            anchor="nw",
-            text=txt,
-            fill='#000000',
-            font=("Roboto Bold", 23 * -1),
-            width=780
-    )
-    return
+from utilities import relative_to_assets,getEntry,getList,delete,resource_path,MODES
 
 class GUI():
 
     def __createWindow(self):
         self.window = Tk()
         self.window.geometry("1440x780")
-        self.window.resizable(False, False)
+        self.window.resizable(True, True)
         self.window.title('Software for air quality analysis')
         self.icon = ImageTk.PhotoImage(Image.open(resource_path('assets/logo.png')))
         self.window.iconphoto(True, self.icon)
@@ -129,6 +59,41 @@ class GUI():
         self.window = -2
         return
 
+    def __generate_result(self,result,usecase,error,color):
+
+        c = Canvas(
+            self.window,
+            height = 500,
+            width = 800,
+            bg=color,
+            bd = 0,
+            highlightthickness = 2,
+            highlightbackground="black",
+            relief = "ridge"
+        )
+        c.place(x=20,y=130)
+
+        if error != '':
+            txt = error
+        elif usecase == MODES[1]:#AIR QUALITY
+            txt = 'The AQI is ' + result
+
+        elif usecase == MODES[2] or usecase == MODES[4]:#SENSOR SIMILARITY AND LOCATION COMPARISON
+            txt = result
+
+        elif usecase == MODES[3]:#CHARACTERISING VALUES
+            txt = result.to_string()
+
+        c.create_text(
+                30,
+                30,
+                anchor="nw",
+                text=txt,
+                fill='#000000',
+                font=("Roboto Bold", 23 * -1),
+                width=780
+        )
+        return
 
     def show(self,form):
 
@@ -427,7 +392,6 @@ class GUI():
             width=213.757080078125,
             height=70.80682373046875
         )
-
         self.window.bind('<Return>',lambda _ : self.__submit(form,entry_1,entry_2,listbox1,listbox2))#use enter key to submit
 
         self.window.mainloop()
@@ -509,7 +473,7 @@ class GUI():
             image=tab
         )
         
-        generate_result(result,self.window,usecase,error,color)
+        self.__generate_result(result,usecase,error,color)
 
         self.window.mainloop()
 

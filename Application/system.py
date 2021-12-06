@@ -1,17 +1,9 @@
 from gui import GUI
-from gui import MODES
 from aggregator import Aggregator
 from evaluator import Evaluator
 from datetime import datetime
+from utilities import is_date,MODES
 
-def is_date(string):
-    fmt = '%Y-%m-%d'
-    try:
-        datetime.strptime(string, fmt)
-        return True, ''
-    except ValueError as e:
-        return False, str(e)
-    
 class System():
 
     def __init__(self):
