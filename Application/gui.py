@@ -464,14 +464,14 @@ class GUI():
             width=213.75711059570312,
             height=70.80682373046875
         )
-
-        tab = ImageTk.PhotoImage(Image.open(resource_path('assets/table.png')).resize((550, 300)))
-        canvas.create_image(
-            870,
-            40,
-            anchor='nw',
-            image=tab
-        )
+        if error == '':#dispaly the table only if no error
+            tab = ImageTk.PhotoImage(Image.open(resource_path('assets/table.png')).resize((550, 300)))
+            canvas.create_image(
+                870,
+                40,
+                anchor='nw',
+                image=tab
+            )
         
         self.__generate_result(result,usecase,error,color)
 

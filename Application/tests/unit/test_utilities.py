@@ -51,11 +51,11 @@ class TestUtilities(unittest.TestCase):
         form = {'Mode':'','Date1':'empty','Date2':'empty','Loc1':'empty','Loc2':'empty'}
 
         form['Mode'] = 'Air Quality'
-        self.assertEqual(spot_error(form,min_date,max_date),'Data field 1 has not been inserted!')
+        self.assertEqual(spot_error(form,min_date,max_date),'Date field 1 has not been inserted!')
         form['Date1'] = '2009-06-10'
-        self.assertEqual(spot_error(form,min_date,max_date),'Data field 1 out of the range registered')
+        self.assertEqual(spot_error(form,min_date,max_date),'Date field 1 out of the range registered')
         form['Date1'] = '2021-06-10'
-        self.assertEqual(spot_error(form,min_date,max_date),'Data field 1 out of the range registered')
+        self.assertEqual(spot_error(form,min_date,max_date),'Date field 1 out of the range registered')
         form['Date1'] = '2015-08-30'
         self.assertEqual(spot_error(form,min_date,max_date),'Location field 1 has not been selected!')
         form['Loc1'] = 'Sensor4'
@@ -64,7 +64,7 @@ class TestUtilities(unittest.TestCase):
         self.assertEqual(spot_error(form,min_date,max_date),'Location field 2 should not be filled for this function!')
         form['Loc2'] = 'empty'
         form['Date2'] = '2014-10-10'
-        self.assertEqual(spot_error(form,min_date,max_date),'Data field 2 must be after than data field 1!')
+        self.assertEqual(spot_error(form,min_date,max_date),'Date field 2 must be after than date field 1!')
 
         form['Mode'] = 'Sensor Similarity'
         form['Date1'] = '2013-12-10'

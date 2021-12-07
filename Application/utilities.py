@@ -70,21 +70,21 @@ def spot_error(form,min_date,max_date):#recognize errors: returns string of desc
     s2 = form['Loc2'].split(':')[0]
     
     if d1 == 'empty':
-        return 'Data field 1 has not been inserted!'
+        return 'Date field 1 has not been inserted!'
     (flag,mex) = is_date(d1)
     if flag == False:
-        return 'Data field 1 is not correct: \n'+mex
+        return 'Date field 1 is not correct: \n'+mex
     if datetime.strptime(d1,'%Y-%m-%d') < datetime.strptime(min_date,'%Y-%m-%d') \
          or datetime.strptime(d1,'%Y-%m-%d') > datetime.strptime(max_date,'%Y-%m-%d'):
-        return 'Data field 1 out of the range registered'
+        return 'Date field 1 out of the range registered'
     if d2 != 'empty':
         (flag,mex) = is_date(d2)
         if flag == False:
-            return 'Data field 2 is not correct: '+mex
+            return 'Date field 2 is not correct: '+mex
         if datetime.strptime(d2,'%Y-%m-%d') <= datetime.strptime(d1,'%Y-%m-%d'):
-            return 'Data field 2 must be after than data field 1!'
+            return 'Date field 2 must be after than date field 1!'
         if datetime.strptime(d2,'%Y-%m-%d') > datetime.strptime(max_date,'%Y-%m-%d'):
-            return 'Data field 2 out of the range registered'
+            return 'Date field 2 out of the range registered'
         
     if (s1 == 'empty' or s2 == 'empty') and mode == MODES[4]:
         return 'Location fields have not been selected!'

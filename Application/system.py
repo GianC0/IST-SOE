@@ -1,8 +1,7 @@
 from gui import GUI
 from aggregator import Aggregator
 from evaluator import Evaluator
-from datetime import datetime
-from utilities import is_date,spot_error,MODES
+from utilities import spot_error
 
 class System():
 
@@ -18,13 +17,20 @@ class System():
 
         self.evaluator = Evaluator(self.allData)
 
-    def run(self):
+    def run(self, arg=None, testing=False):
+        #testing part that bypass the gui
+        if testing is True:
+            error = spot_error(arg,self.min_date,self.max_date)
+            if error == '':
+                return self.evaluator.get_result(arg)
+            return error
+
         self.form = {'Mode':'','Date1':'','Date2':'','Loc1':'','Loc2':''}#form to be passed to gui to retrieve user's data
         end = False
         while end is False:
 
             if self.GUI.is_defined() == True:#check that the user hasn't forced the closure of the window
-                self.GUI.show(self.form)
+                    self.GUI.show(self.form)
             else:
                 break
             

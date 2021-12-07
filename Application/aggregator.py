@@ -12,6 +12,7 @@ class Aggregator:
         except Exception:
             print('Reading error')
             self.data = None
+            self.sensors = None
         
 
     def get_data(self):
