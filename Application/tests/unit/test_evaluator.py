@@ -1,16 +1,33 @@
 import unittest
-
 from pandas import DataFrame
+import os, sys
+import pandas as pd
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(os.path.dirname(currentdir))
+sys.path.append(parentdir)
 from evaluator import Evaluator
-from aggregator import Aggregator
+from utilities import resource_path
 
 class TestEvaluator(unittest.TestCase):
 
     def setUp(self):
-        self.evaluator = Evaluator(Aggregator().get_data())
+        try:
+            self.df = pd.read_csv(resource_path('data/data.csv'))
+            self.df['Timestamp'] = pd.to_datetime(self.df['Timestamp'])
+            self.sens_list = pd.read_csv(resource_path('data/sensors.csv'))['SensorID']
+            self.data = {}
+            for s in self.sens_list:
+                self.data[s] = self.df[self.df['SensorID'] == s]
+        
+            self.evaluator = Evaluator(self.data)
+        except Exception as e:
+            print(e)
 
     def tearDown(self):
         self.evaluator = None
+        self.df = None
+        self.data = None
+        self.sens_list = None
 
     def test_get_aqi(self):
         form = {'Mode':'Air Quality','Date1':'2017-03-02','Date2':'2017-03-03','Loc1':'Sensor4: 10.05° W, 87.55° N','Loc2':'empty'}

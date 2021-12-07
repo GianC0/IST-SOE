@@ -13,14 +13,14 @@ class GUI():
         self.window.title('Software for air quality analysis')
         self.icon = ImageTk.PhotoImage(Image.open(resource_path('assets/logo.png')))
         self.window.iconphoto(True, self.icon)
-        self.window.protocol("WM_DELETE_WINDOW", lambda: self.__close_window())
+        self.window.protocol("WM_DELETE_WINDOW", lambda: self.close_window())
         return
     
     def __init__(self,locations):
         self.__createWindow()
         self.locations = locations
     
-    def __close_window(self):
+    def close_window(self):
         self.window.destroy()
         self.window = -1
         return
