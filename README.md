@@ -7,7 +7,7 @@ SO2, O3, PM10 and NO2 and compares them with the European Enviroment Agency stan
 
 # Detailed description
 
-> Open our [documentation file](soe_documentation.pdf)
+> Open our [documentation file](documentation.pdf)
 
 ## Usage
  
