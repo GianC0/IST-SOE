@@ -37,4 +37,4 @@ class TestAggregator(unittest.TestCase):
         self.test_get_period()
 
 if __name__ == '__main__':
-    unittest.main() 
+    unittest.main()
