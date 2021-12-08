@@ -5,7 +5,7 @@ comparison between locations, basing on the provided dataset of registered data.
 program works using the concentration of pollutants associated to bad air quality:
 SO2, O3, PM10 and NO2 and compares them with the European Enviroment Agency standards.
 
-# Detailed description
+## Detailed description
 
 > Open our [documentation file](documentation.pdf)
 
@@ -24,7 +24,7 @@ python tests/test_suite.py
 >Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 Please make sure to update tests as appropriate.
 
-# Authors
+## Authors
 SUEZ Matteo and ANDRIANO Giancarlo
 
 ## License
