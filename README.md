@@ -24,6 +24,10 @@ python tests/test_suite.py
 >Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 Please make sure to update tests as appropriate.
 
+## References
+>[European Air Quality Index](https://www.eea.europa.eu/themes/air/air-quality-index)
+[Air quality and AQI](https://environmental-conscience.com/air-quality-and-air-quality-index/)
+
 ## Authors
 SUEZ Matteo and ANDRIANO Giancarlo
 

@@ -9,10 +9,11 @@ class Aggregator:
             self.data = pd.read_csv(resource_path('data/data.csv'))
             self.data['Timestamp'] = pd.to_datetime(self.data['Timestamp'])
             self.sensors = pd.read_csv(resource_path('data/sensors.csv'))
-        except Exception:
+        except Exception as e:
             print('Reading error')
             self.data = None
             self.sensors = None
+            raise(e)
         
 
     def get_data(self):

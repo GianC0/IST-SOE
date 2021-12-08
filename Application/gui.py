@@ -1,6 +1,7 @@
 from PIL import ImageTk, Image
 from tkinter import Tk, Canvas, Button, PhotoImage, Entry,ttk,Listbox
 import tkinter
+from pandas import DataFrame
 from tkinter.constants import  END
 from utilities import relative_to_assets,getEntry,getList,delete,resource_path,MODES
 
@@ -454,6 +455,8 @@ class GUI():
         if error != '':
             txt = error
         else :
+            if isinstance(result,DataFrame):
+                result = result.to_string()
             txt = result
 
         c.create_text(

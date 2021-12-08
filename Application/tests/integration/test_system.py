@@ -25,7 +25,7 @@ class TestSystem(unittest.TestCase):
 
         form = {'Mode':'Air Quality','Date1':'2017-05-15','Date2':'2017-05-17','Loc1':'Sensor6: 23.63° W, 71.25° S','Loc2':'empty'}
         result = self.evaluator.get_result(form)
-        self.assertEqual(result,'Very Poor')
+        self.assertEqual(result,'The AQI is Very Poor')
 
         form = {'Mode':'Characterising Values','Date1':'2017-12-12','Date2':'empty','Loc1':'Sensor0: 8.16° W,37.66° S','Loc2':'empty'}
         result = self.evaluator.get_result(form)
