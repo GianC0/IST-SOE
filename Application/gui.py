@@ -14,7 +14,6 @@ class GUI():
         self.icon = ImageTk.PhotoImage(Image.open(resource_path('assets/logo.png')))
         self.window.iconphoto(True, self.icon)
         self.window.protocol("WM_DELETE_WINDOW", lambda: self.close_window())
-        return
     
     def __init__(self,locations):
         self.__createWindow()
@@ -23,7 +22,7 @@ class GUI():
     def close_window(self):
         self.window.destroy()
         self.window = -1
-        return
+
     def is_defined(self):
         return self.window != -1
 
@@ -44,12 +43,10 @@ class GUI():
         form['Loc2'] = getList(listbox2)
     
         self.window.destroy()
-        return
 
     def __home(self,form):
         self.__cleanWindow()
         self.show(form)
-        return
 
     def __restart(self,mode,flag):
         self.window.destroy()
@@ -57,43 +54,6 @@ class GUI():
             self.window = -1
             flag[0] = True
         self.window = -2
-        return
-
-    def __generate_result(self,result,usecase,error,color):
-
-        c = Canvas(
-            self.window,
-            height = 500,
-            width = 800,
-            bg=color,
-            bd = 0,
-            highlightthickness = 2,
-            highlightbackground="black",
-            relief = "ridge"
-        )
-        c.place(x=20,y=130)
-
-        if error != '':
-            txt = error
-        elif usecase == MODES[1]:#AIR QUALITY
-            txt = 'The AQI is ' + result
-
-        elif usecase == MODES[2] or usecase == MODES[4]:#SENSOR SIMILARITY AND LOCATION COMPARISON
-            txt = result
-
-        elif usecase == MODES[3]:#CHARACTERISING VALUES
-            txt = result.to_string()
-
-        c.create_text(
-                30,
-                30,
-                anchor="nw",
-                text=txt,
-                fill='#000000',
-                font=("Roboto Bold", 23 * -1),
-                width=780
-        )
-        return
 
     def show(self,form):
 
@@ -209,7 +169,6 @@ class GUI():
         )
     
         self.window.mainloop()
-        return
 
     def __showForm(self,mode,form):
         self.__cleanWindow()
@@ -395,9 +354,8 @@ class GUI():
         self.window.bind('<Return>',lambda _ : self.__submit(form,entry_1,entry_2,listbox1,listbox2))#use enter key to submit
 
         self.window.mainloop()
-        return
 
-    def showResult(self,result,error,usecase):
+    def showResult(self,result,error):
         self.__createWindow()
         flag = [False]
         bg = ImageTk.PhotoImage(Image.open(resource_path('assets/back8.jpg')).resize((1440, 780)))
@@ -473,10 +431,37 @@ class GUI():
                 image=tab
             )
         
-        self.__generate_result(result,usecase,error,color)
+        self.__generate_result(result,error,color)
 
         self.window.mainloop()
 
         return flag[0]
         
+    def __generate_result(self,result,error,color):
 
+        c = Canvas(
+            self.window,
+            height = 500,
+            width = 800,
+            bg=color,
+            bd = 0,
+            highlightthickness = 2,
+            highlightbackground="black",
+            relief = "ridge"
+        )
+        c.place(x=20,y=130)
+
+        if error != '':
+            txt = error
+        else :
+            txt = result
+
+        c.create_text(
+                30,
+                30,
+                anchor="nw",
+                text=txt,
+                fill='#000000',
+                font=("Roboto Bold", 23 * -1),
+                width=780
+        )

@@ -41,7 +41,7 @@ class System():
                 result = self.evaluator.get_result(self.form)
 
             if self.GUI.is_defined() == True:#check that the user hasn't forced the closure of the window
-                end = self.GUI.showResult(result,error,self.form['Mode'])
+                end = self.GUI.showResult(result,error)
             else:
                 break
     

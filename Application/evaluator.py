@@ -14,11 +14,11 @@ class Evaluator:
         s2 = form['Loc2'].split(':')[0]
 
         if mode == MODES[1]:
-            return self.__get_aqi(s1,d1,d2)
+            return 'The AQI is ' + self.__get_aqi(s1,d1,d2)
         elif mode == MODES[2]:
             return self.__get_similarity(d1,d2)
         elif mode == MODES[3]:
-            return self.__get_charData(s1,d1,d2)
+            return self.__get_charData(s1,d1,d2).to_string()
         return self.__get_comparison(s1,s2,d1,d2)
 
     def __get_charData(self, sensor, dateI, dateF):
