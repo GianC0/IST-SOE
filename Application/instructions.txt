@@ -1,0 +1,6 @@
+To use the application as executable, only the folder 'app' is needed. Inside there are 3 elements: 'main.spec', 'dist' folder and 'build' folder; to find the executable go inside the 'dist' folder. To execute the 'AirQualityManagement.exe' just double click on it.
+
+To take a look at code we have provided all the functional python modules, 'aggregator.py', 'evaluator.py', 'gui.py', 'main.py','system.py','utilities.py', and the two folders containing data such as images and csv files, 'data' and 'assets'. Tu run the application through an IDE just run 'main.py'.
+
+Tests are divided into aggregation and unit tests and they are collected into 'tests' folder. It's possible to execute them either from terminal, opening the terminal from 'Application' folder and running the command 'python tests/test_suite.py', or from an IDE, opening the IDE on 'Application' folder and running directly tests individually or together from test_suite.py.
+
